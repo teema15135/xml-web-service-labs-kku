@@ -1,0 +1,28 @@
+﻿Name : Teema Luksameset             Student ID : 593040425-9
+
+3. XML Usage Analysis
+********************************************************************
+3.1) What are the advantages of XML ?
+
+Answer
+XML is can be read by human, compatible with many computer language.
+Using customize tag that get along with programing style.
+********************************************************************
+********************************************************************
+3.2) What are the disadvantages of XML ?
+
+Answer
+To make it readable in browsers, it depends on HTML.
+********************************************************************
+********************************************************************
+3.3) Give an example of applications that you would use XML and explain why.
+
+Answer
+Book catalog, because it can keep book information of each book separately by id and can be show up in web browser easily.
+********************************************************************
+********************************************************************
+3.4) Give an example of applications that you would not use XML and explain why.
+
+Answer
+Social network, because of it working all the time and having a big data, file processing isn’t good idea to deal with data that changed all the time.
+********************************************************************

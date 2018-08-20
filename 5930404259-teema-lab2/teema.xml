@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/css" href="cd_catalog.css"?>
+<me>
+    <name>
+        My name is 
+        <first_name>Teema</first_name> 
+        <last_name>Luksameset</last_name> and my nickname is 
+        <nickname>Sun</nickname>.
+    </name>
+    <contact>
+        Tel.:
+        <tel_number>083-287-6664</tel_number>
+        <br/>
+        Emails: 
+        <emails>
+            <email id="gmail">spannersun.love.anime@gmail.com</email>, 
+            <email id="kkumail">teema.ma.luk@kkumail.com</email>
+        </emails>
+        <br/>
+        Facebook Name: 
+        <facebook>
+            Teema Luksameset
+        </facebook>
+        <br/>
+        Hometown: 
+        <hometown>
+            <number>234</number> <road>Phosri</road> Road. <tambone>Makkheng</tambone>. <province>Udon Thani</province> <post_code>40000</post_code>
+        </hometown>
+    </contact>
+    <br/>
+    <hobbies>
+        My hobbies is 
+        <hobby id="hob01">playing computer game</hobby>, 
+        <hobby id="hob02">playing guitar</hobby>, 
+        <hobby id="hob03">watching movie</hobby>.
+    </hobbies>
+    <br/>
+    <favorites>
+        My favorite things is 
+        <favorite id="fav01">BNK48</favorite>, 
+        <favorite id="fav02">Music</favorite>.
+    </favorites>
+</me>
