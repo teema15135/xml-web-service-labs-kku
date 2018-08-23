@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://tempuri.org/purchaseOrderSchema.xsd"
+            xmlns:tns="http://tempuri.org/purchaseOrderSchema.xsd"
+            elementFormDefault="qualified">
+
+    <xsd:element name="purchaseOrder">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="shipTo" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="name" type="xsd:string"/>
+                            <xsd:element name="building" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="street" type="xsd:string"/>
+                            <xsd:element name="city" type="xsd:string"/>
+                            <xsd:element name="state" type="xsd:string"/>
+                            <xsd:element name="zip" type="xsd:string"/>
+                        </xsd:sequence>
+                        <xsd:attribute name="country" type="xsd:string"/>
+                        <xsd:attribute name="type" type="xsd:string"/>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="billTo" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="name" type="xsd:string"/>
+                            <xsd:element name="building" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="street" type="xsd:string"/>
+                            <xsd:element name="city" type="xsd:string"/>
+                            <xsd:element name="state" type="xsd:string"/>
+                            <xsd:element name="zip" type="xsd:string"/>
+                        </xsd:sequence>
+                        <xsd:attribute name="country" type="xsd:string"/>
+                        <xsd:attribute name="type" type="xsd:string"/>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>    
+</xsd:schema>

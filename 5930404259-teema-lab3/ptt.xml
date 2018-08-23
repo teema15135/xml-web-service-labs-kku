@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<OilPrice
+            xmlns="http://ptt.com"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://ptt.com ptt.xsd">
+    <CurrentOilPrice>
+        <Language>TH</Language>
+    </CurrentOilPrice>
+    <CurrentOilPriceResponse>
+        <CurrentOilPriceResult>TH</CurrentOilPriceResult>
+    </CurrentOilPriceResponse>
+    <GetOilPrice>
+        <Language>TH</Language>
+        <DD>23</DD>
+        <MM>08</MM>
+        <YYYY>2018</YYYY>
+    </GetOilPrice>
+    <GetOilPriceResponse>
+        <GetOilPriceResult>price</GetOilPriceResult>
+    </GetOilPriceResponse>
+</OilPrice>

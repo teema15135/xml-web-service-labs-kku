@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema 
+    xmlns="http://teema.in.th"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://teema.in.th"
+            
+    elementFormDefault="qualified">
+
+    <xsd:element name="nations" type="nationsType"/>
+    <xsd:complexType name="nationsType">
+        <xsd:sequence>
+            <xsd:element name="nation">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="name" type="xsd:string"/>
+                        <xsd:element name="location" type="xsd:string"/>
+                        <xsd:element name="population">
+                            <xsd:complexType mixed="true">
+                                <xsd:sequence>
+                                    <xsd:element name="median_age" type="xsd:int"/>
+                                    <xsd:element name="global_rank" type="xsd:int"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                    <xsd:attribute name="id" type="xsd:ID"/>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>
