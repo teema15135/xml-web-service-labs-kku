@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<nations
+    xmlns="http://teema.in.th"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://teema.in.th thai-nation.xsd">
+    <nation id="th">
+        <name>Thailand</name>
+        <location>Southeast Asia</location>
+        <population>67 millions
+            <median_age>38</median_age>
+            <global_rank>20</global_rank>
+        </population>
+    </nation>
+</nations>

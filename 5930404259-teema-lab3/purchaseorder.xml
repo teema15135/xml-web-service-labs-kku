@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<purchaseOrder 
+               xmlns="http://tempuri.org/purchaseOrderSchema.xsd"
+               xmlns:xsi=
+	"http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation=
+	"http://tempuri.org/purchaseOrderSchema.xsd purchaseorder.xsd" >  
+  <shipTo country="Thailand" type="express">  
+    <name>name1</name>  
+    <building>CP Tower</building>
+    <street>street1</street>  
+    <city>city1</city>  
+    <state>state1</state>  
+    <zip>10000</zip>  
+  </shipTo>  
+  <shipTo country="Japan">  
+    <name>name2</name>  
+    <street>street2</street>  
+    <city>city2</city>  
+    <state>state2</state>  
+    <zip>20000</zip>  
+  </shipTo>  
+  <billTo country="Thailand">  
+    <name>name1</name>  
+    <street>street1</street>  
+    <city>city1</city>  
+    <state>state1</state>  
+    <zip>1</zip>  
+  </billTo>  
+</purchaseOrder>  
