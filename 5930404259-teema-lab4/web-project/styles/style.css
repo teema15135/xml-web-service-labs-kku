@@ -1,0 +1,37 @@
+html {
+    background-color: #FFD2FF;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Noto Sans';
+    font-weight: bold;
+}
+
+body {
+    width: 600px;
+    margin: 50 auto 50 auto;
+    background-color: rgba(186, 149, 255, 0.6);
+}
+
+p {
+    font-family: 'Kanit';   
+}
+
+a {
+    color: rgb(0, 57, 131);
+}
+
+.profile {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.quote_en {
+    font-family: 'M PLUS Rounded 1c';
+}
+
+.quote_th {
+    font-family: 'Athiti';
+}
