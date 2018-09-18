@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Simple Calculator</title>
+    <style>
+        html {
+            font-family: sans-serif;
+        }
+
+        #display {
+            text-align: right;
+            font-size: 12pt;
+            height: 1em;
+            background-color: black;
+            color: white;
+            padding: 20px;
+            font-weight: bold;
+        }
+
+        #calCUI {
+            margin: auto auto;
+            width: 192pt;
+        }
+
+        .round-btn {
+            width: 3.5em;
+            background-color: rgb(189, 183, 183);
+            border: none;
+            padding: 20px;
+            text-align: center;
+            font-size: 12pt;
+            margin: 2px;
+            border-radius: 50%;
+        }
+
+        .orange-color {
+            background-color: orange;
+        }
+
+        .oval-btn {
+            width: 7em !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="calCUI">
+        <p id="display"></p>
+        <table>
+            <tr>
+                <td><button id="ac-btn" class="round-btn orange-color">AC</button></td>
+                <td><button id="nag-btn" class="round-btn orange-color">+/-</button></td>
+                <td><button id="mod-btn" class="round-btn orange-color">%</button></td>
+                <td><button id="div-btn" class="round-btn orange-color">/</button></td>
+            </tr>
+            <tr>
+                <td><button id="seven-btn" class="round-btn">7</button></td>
+                <td><button id="eight-btn" class="round-btn">8</button></td>
+                <td><button id="nine-btn" class="round-btn">9</button></td>
+                <td><button id="mul-btn" class="round-btn">x</button></td>
+            </tr>
+            <tr>
+                <td><button id="four-btn" class="round-btn">4</button></td>
+                <td><button id="five-btn" class="round-btn">5</button></td>
+                <td><button id="six-btn" class="round-btn">6</button></td>
+                <td><button id="minus-btn" class="round-btn">-</button></td>
+            </tr>
+            <tr>
+                <td><button id="one-btn" class="round-btn">1</button></td>
+                <td><button id="two-btn" class="round-btn">2</button></td>
+                <td><button id="three-btn" class="round-btn">3</button></td>
+                <td><button id="add-btn" class="round-btn">+</button></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button id="zero-btn" class="round-btn oval-btn">0</button></td>
+                <td><button id="dot-btn" class="round-btn">.</button></td>
+                <td><button id="equal-btn" class="round-btn">=</button></td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        // Init input text
+        const textZero = "0";
+        const textOne = "1";
+        const textTwo = "2";
+        const textThree = "3";
+        const textFour = "4";
+        const textFive = "5";
+        const textSix = "6";
+        const textSeven = "7";
+        const textEight = "8";
+        const textNine = "9";
+        const textDot = ".";
+        const textAdd = "+";
+        const textMinus = "-";
+        const textMul = "x";
+        const textDiv = "/";
+        const textMod = "%";
+        const textNag = "+/-";
+        const textAC = "AC";
+
+        //Init display Obj for using
+        const displayPara = document.getElementById('display');
+
+        //AddEventListener for all button
+        document.getElementById('zero-btn').addEventListener('click', function () { addText(textZero, true); });
+        document.getElementById('one-btn').addEventListener('click', function () { addText(textOne, true); });
+        document.getElementById('two-btn').addEventListener('click', function () { addText(textTwo, true); });
+        document.getElementById('three-btn').addEventListener('click', function () { addText(textThree, true); });
+        document.getElementById('four-btn').addEventListener('click', function () { addText(textFour, true); });
+        document.getElementById('five-btn').addEventListener('click', function () { addText(textFive, true); });
+        document.getElementById('six-btn').addEventListener('click', function () { addText(textSix, true); });
+        document.getElementById('seven-btn').addEventListener('click', function () { addText(textSeven, true); });
+        document.getElementById('eight-btn').addEventListener('click', function () { addText(textEight, true); });
+        document.getElementById('nine-btn').addEventListener('click', function () { addText(textNine, true); });
+        document.getElementById('dot-btn').addEventListener('click', function () { addText(textDot, true); });
+        document.getElementById('add-btn').addEventListener('click', function () { addText(textAdd, true); });
+        document.getElementById('minus-btn').addEventListener('click', function () { addText(textMinus, true); });
+        document.getElementById('mul-btn').addEventListener('click', function () { addText(textMul, true); });
+        document.getElementById('div-btn').addEventListener('click', function () { addText(textDiv, true); });
+        document.getElementById('mod-btn').addEventListener('click', function () { addText(textMod, true); });
+        document.getElementById('nag-btn').addEventListener('click', function () { addText(textMinus, false); });
+        document.getElementById('ac-btn').addEventListener('click', clearDisplay);
+        document.getElementById('equal-btn').addEventListener('click', calC);
+
+        /*
+         * Clear Display
+         */
+        function clearDisplay() {
+            displayPara.textContent = "";
+        }
+
+        /*
+         * Add text to display
+         * isBehind : boolean > separate between normal adding and nagative sign adding
+         * txt : any > text to add
+         */
+        function addText(txt, isBehind) {
+            var disText = displayPara.textContent;
+            if (isBehind) {
+                disText = disText + txt;
+            }
+            else {
+                if (disText.charAt(0) == textMinus) {
+                    disText = disText.substring(1, disText.length);
+                }
+                else
+                    disText = txt + disText;
+            }
+            displayPara.textContent = disText;
+        }
+
+        /*
+         * Calculate the equation on screen
+        */
+        function calC() {
+            strEq = displayPara.textContent;
+            strEq = strEq.replace("x", "*");
+            var res = eval(strEq);
+            displayPara.textContent = res;
+        }
+
+    </script>
+</body>
+
+<!--    
+    fontfam: sans-serif
+        inputdis
+            height 2em
+            text font size 12 pt
+            width 96%
+            bg color black
+            text color white
+            text align right
+        inputbtn
+            width 3.5em
+            ac +- % / x - + = bgcolor orange
+            no border
+            padding 20px
+            text align center
+            font size 12
+            margin 2px
+            border radius 50%
+            ***Zero width 7em
+            num btn bg color 189 183 183
+-->
+
+</html>

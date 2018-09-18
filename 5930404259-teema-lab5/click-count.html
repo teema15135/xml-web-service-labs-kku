@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Click Me</title>
+
+</head>
+
+<body>
+    <button>Click me</button>
+    <p id="clickText"></p>
+
+    <script defer>
+        var counter = 0;
+        var buttons = document.querySelectorAll('button');
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener('click', createParagraph);
+        }
+
+        function createParagraph() {
+            counter = counter + 1;
+            var para = document.getElementById('clickText');
+            para.textContent = "You clicked the button for " + counter + " time";
+            if (counter > 1) para.textContent = para.textContent + "s";
+        }
+    </script>
+</body>
+
+</html>

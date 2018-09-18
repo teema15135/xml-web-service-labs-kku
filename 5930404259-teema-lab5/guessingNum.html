@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Number guessing game</title>
+    <style>
+        html {
+                font-family: sans-serif;
+            }
+            
+            body {
+                width: 50%;
+                max-width: 800px;
+                min-width: 480px;
+                margin: 0 auto;
+            }
+
+            .lastResult {
+                color: white;
+                padding: 3px;
+            }
+        </style>
+</head>
+
+<body>
+    <h1>Number guessing game</h1>
+    <p>We have selected a random number between 1 and 100. See if you can guess it in 10 turns or fewer. We'll tell you
+        if you guess was too high or too low.</p>
+    <div class="form">
+        <label for="guessField">Enter a guess:</label>
+        <input type="text" id="guessField" class="guessField" /> <!-- Number guess Text Field -->
+        <input type="submit" value="Submit guess" class="guessSubmit"> <!-- Submit Guess Button -->
+    </div>
+
+    <div class="resultParas">
+        <p class="guesses"></p> <!-- Previous guesses -->
+        <p class="lastResult"></p> <!-- Right or Wrong -->
+        <h2 class="lowOrHi"></h2> <!-- Too low or too high for wrong -->
+    </div>
+
+    <script defer>
+
+        //Counter for gameover
+        var guessCounter = 0;
+
+        //Quota for gameover
+        const guessQuota = 10;
+
+        //Flag for knowing the game state
+        var gameEnd = false;
+
+        //Random Number for the game 1-100
+        var correctNumber = Math.floor((Math.random() * 100) + 1);
+
+        //Init Obj for using
+        const paraPrevGuess = document.getElementsByClassName("guesses")[0];
+        const paraLowOrHigh = document.getElementsByClassName("lowOrHi")[0];
+        const textInputF = document.getElementById('guessField');
+        const resultText = document.getElementsByClassName("lastResult")[0];
+        const submitButt = document.getElementsByClassName("guessSubmit")[0];
+
+        /*
+         * Add event listener
+         */
+        submitButt.addEventListener('click', pressSubmit); //Directly click on button
+        textInputF.addEventListener('keydown', (event) => { //Press Enter
+            var keyName = event.key;
+            if (keyName == "Enter" && !gameEnd) pressSubmit(); //If game ended, it couldn't be executed
+        });
+
+        //Text Constant
+        const guessedText = "Previous guesses: ";
+        const tooHigh = "Last guess was too high!";
+        const tooLow = "Last guess was too low!";
+
+        // When press the Submit
+        function pressSubmit() {
+            if (isValidNumber()) {
+                guessCounter = guessCounter + 1;
+                compareNumber();
+                attendNumber();
+                textInputF.value = "";
+            }
+            else {
+                alert("Please Enter Number Correctly...")
+            }
+        }
+
+        // Check if input's a number
+        function isValidNumber() {
+            if (isNaN(textInputF.value)) return false;
+            if (textInputF.value >= 1 && textInputF.value <= 100)
+                return true;
+            return false;
+        }
+
+        // If input is Wrong
+        function wrongNum() {
+            resultText.textContent = "Wrong!";
+            resultText.style.backgroundColor = "red";
+            checkQuota();
+        }
+
+        // If input is Correct
+        function correctNum() {
+            resultText.textContent = "Congratulations! You got it right!";
+            resultText.style.backgroundColor = "green";
+            paraLowOrHigh.textContent = "";
+            submitButt.disabled = true;
+            gameEnd = true;
+        }
+
+        // Check if out of quota
+        function checkQuota() {
+            if (guessCounter >= guessQuota) {
+                submitButt.disabled = true;
+                resultText.textContent = "!!!GAME OVER!!!";
+                resultText.style.backgroundColor = "red";
+                paraLowOrHigh.textContent = "";
+                gameEnd = true;
+                addRestartButton();
+            }
+        }
+
+        // When game end add Restart button
+        function addRestartButton() {
+            var restartBut = document.createElement('button');
+            restartBut.appendChild(document.createTextNode('Start new game'));
+            document.body.appendChild(restartBut);
+            restartBut.addEventListener('click', function () { location.reload(); textInputF.value = ""; });
+        }
+
+        // Compare input to a correct number
+        function compareNumber() {
+            if (textInputF.value > correctNumber) { //Too High
+                paraLowOrHigh.textContent = tooHigh;
+                wrongNum();
+            }
+            else if (textInputF.value < correctNumber) { //Too Low
+                paraLowOrHigh.textContent = tooLow;
+                wrongNum();
+            }
+            else {
+                correctNum();
+                addRestartButton();
+            }
+        }
+
+        // Attend prev number into a Previous Para
+        function attendNumber() {
+            var inputText = document.getElementById('guessField').value;
+            guessedText = guessedText + " " + textInputF.value;
+            paraPrevGuess.textContent = guessedText;
+        }
+    </script>
+</body>
+
+</html>
