@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Generate Random Color</title>
+    <style>
+        div {
+            width: 25%;
+            height: 100px;
+            margin: 5px 0;
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+
+        const evenColColor = 'yellow';
+
+        createAllDiv();
+        var divs = document.querySelectorAll('div');
+        addListenerToAllDiv();
+
+        function createAllDiv() {
+            for (var i = 1; i <= 16; i++) {
+                var myDiv = document.createElement('div');
+                myDiv.style.backgroundColor = 'blue';
+                document.body.appendChild(myDiv);
+            }
+        }
+
+        function addListenerToAllDiv() {
+            for (var i = 1; i <= 16; i++) {
+                if (i % 2 == 1)
+                    divs[i-1].addEventListener('click', function (e) {
+                        e.target.style.backgroundColor = bgColor();
+                    });
+                else
+                    divs[i-1].addEventListener('click', function(e) {
+                        e.target.style.backgroundColor = bgEvenColor();
+                    });
+            }
+        }
+
+        function bgColor() {
+            return randColor();
+        }
+
+        function bgEvenColor() {
+            return evenColColor;
+        }
+
+        function randColor() {
+            var rnd = 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')';
+            return rnd;
+        }
+
+        function random(max) {
+            return Math.floor(Math.random() * max);
+        }
+
+    </script>
+</body>
+
+</html>

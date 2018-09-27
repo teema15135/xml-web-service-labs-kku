@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Registration Form</title>
+    <style>
+
+        html {
+            font-family: 'Angsana New';
+            font-size: 18pt;
+            color: black;
+        }
+
+        h1 {
+            font-size: 50pt;
+            font-weight: bold;
+            margin-top: 0.3rem;
+            margin-bottom: 0;
+            border-top: 1rem;
+            border-bottom: 0px;
+            padding: 0 auto 2px auto;
+            height: 1.2em;
+        }
+
+        hr {
+            border-width: 0px;
+            border-top: 1px solid gainsboro;
+            margin-bottom: 25px;
+        }
+
+        p {
+            margin: 0.1em auto;
+            border: 0.1em auto;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 3px;
+            border-bottom: 3px;
+            padding-bottom: 2px;
+        }
+
+        input {
+            width: 100%;
+            display: block;
+            overflow: hidden;
+            border: none;
+            border-right: 100%;
+            box-sizing: border-box;
+            padding: 15px;
+            margin-top: 5px;
+            padding-left: 20px;
+            background-color: #F1F1F1;
+            height: 3em;
+            margin-bottom: 22px;
+
+            -webkit-transition: background-color 0.5s;
+            transition: background-color 0.5s;
+            
+            
+            transition-timing-function: ease-out;
+        }
+        
+        input:focus {
+            background-color: #B1B1B1;
+        }
+        
+        .red_font {
+            color : red;
+        }
+
+        form {
+            padding: 16px 16px;
+        }
+
+        /*
+        .form_container {
+            padding-left: 0.5rem;
+            border-bottom: 0.5rem;
+            margin-bottom: 0.5rem;
+        }*/
+
+        .corner-radius {
+            border-radius: 0.3em;
+        }
+
+        #reg-btn {
+            background-color: green;
+            padding: 16px 20px;
+            margin-top: 8px;
+            margin-top: 8px;
+            border: none;
+            color: white;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        .alreadyhave {
+            width: 100%;
+            height: 50px;
+            display: inline-block;
+            background-color: rgb(200, 200, 200);
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .alreadyhave span {
+            display: block;
+            line-height: 40px;
+            vertical-align: middle;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="form_container">
+        <form action="">
+
+            <h1>Registration Form</h1>
+            <p>Please fill in this form to create an account.</p>
+
+            <hr>
+
+            <label for='user_email' class="red_font">Email*</label>
+            <span><input type='text' id='user_email' class="corner-radius" placeholder='Enter your email' required /></span>
+
+            <label for='user_password' class="red_font">Password*</label>
+            <span><input type='password' id='user_password' class="corner-radius" placeholder='Enter you password'
+                    required /></span>
+
+            <label for='user_r_password' class="red_font">Repeat Password*</label>
+            <span><input type='password' id='user_r_password' class="corner-radius" placeholder='Enter you password again'
+                    required /></span>
+
+            <hr>
+
+            <p>By creating an account you agree to our <a href="">Terms & Privacy</a></p>
+            <button id='reg-btn' type='submit' value='submit' class="corner-radius">Register</button>
+        </form>
+    </div>
+    <div class="alreadyhave corner-radius">
+        <span>
+            <p>Already have an account? <a href="">Sign in</a>.</p>
+        </span>
+    </div>
+
+    <script>
+        const emailField = document.getElementById('user_email');
+        const registBtn = document.getElementById('reg-btn');
+        const password = document.getElementById('user_password');
+        const repassword = document.getElementById('user_r_password');
+        const form_cont = document.getElementById('form_container');
+
+        form_cont.onsubmit = validateSubmit;
+
+        function validateSubmit() {
+            if (checkEmail(emailField.value) && checkPassword(password.value, repassword.value)) {
+                return true;
+            }
+            return false;
+        }
+
+        function checkEmail(email) {
+            var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+            if (!reg.test(email)) {
+                alert("Please enter correct email address");
+                return false;
+            }
+            return true;
+        }
+
+        function checkPassword(pass, repass) {
+            if (pass.length < 6) {
+                alert("Please have at least six characters");
+                return false;
+            }
+
+
+            var regIfHaveLetter = /^([0-9])+$/;
+            var regIfHaveNumber = /^([A-Za-z])+$/;
+
+            if (regIfHaveLetter.test(pass)) { //True when it contain only digit
+                alert("Please have at least one letter");
+                return false;
+            }
+            else if (regIfHaveNumber.test(pass)) { //True when it contain only letter
+                alert("Please have at least one number");
+                return false;
+            }
+
+            if (pass != repass) {
+                alert("Password and repeat password need to be the same");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+
+</body>
+
+</html>
