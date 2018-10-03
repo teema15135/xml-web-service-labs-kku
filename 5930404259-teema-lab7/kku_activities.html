@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>KKU Activites</title>
+    <style> 
+    
+        html {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Current KKU Activites</h1>
+    <ol id="act_list"></ol>
+    
+    <script>
+        
+        var requestJSON = new XMLHttpRequest();
+        requestJSON.open('GET', "http://localhost:8000/activities.json");
+        requestJSON.responseType = 'json';
+        requestJSON.send();
+
+
+
+        requestJSON.onload = function () {
+            console.log(requestJSON.response);
+            const activities = requestJSON.response['activities'];
+            const numActivities = activities.length;
+            for(var i=0; i<numActivities; i++) {
+                appendOrderList(activities[i]);
+            }
+        }
+
+        function appendOrderList(activity) {
+            var date = activity.dateSt;
+            var time = activity.timeSt;
+            var telNum = activity.contact.phone;
+            var title = activity.title;
+            var linkURL = activity.url;
+            var imageURL = activity.image;
+            
+            var listItem = document.createElement('li');
+            var infoPara = document.createElement('p');
+            var newLine = document.createElement('br');
+            var linkText = document.createElement('a');
+            var disImage = document.createElement('img');
+
+            var orderedList = document.getElementById('act_list');
+
+            // infoPara.textContent = "Date:" + date + " time:" + time
+            //                     + " if interested, call " + telNum;
+            infoPara.innerHTML = "Date:" + date + " time:" + time
+                                + " if interested, call " + telNum + "<br>";
+            linkText.innerHTML = title;
+            linkText.setAttribute('href', linkURL);
+            disImage.setAttribute('src', imageURL);
+            disImage.style.width = '50%';
+
+            infoPara.appendChild(linkText);
+            infoPara.appendChild(newLine);
+            infoPara.appendChild(disImage);
+            listItem.appendChild(infoPara);
+            // listItem.appendChild(newLine);
+            // listItem.appendChild(linkText);
+            // listItem.appendChild(disImage);
+
+            orderedList.appendChild(listItem);
+        }
+
+    </script>
+</body>
+</html>

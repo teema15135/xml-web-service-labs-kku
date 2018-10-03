@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Open Data Images</title>
+    <style>
+
+        #loading_img {
+            display: block;
+            width: 450px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>Open Data Images</h1>
+    <figure>
+        <img id="loading_img" src="images/loading-ani.gif" />
+    </figure>
+    <ol id='image_list'>
+
+    </ol>
+    <script>
+
+        const orderedList = document.getElementById('image_list');
+
+        var requestJSON = new XMLHttpRequest();
+        var requestURL = "https://api.data.go.th/search_virtuoso/api/dataset/query?dsname=vir_237_1535648421&loadAll=1&type=json&limit=10";
+        requestJSON.open('GET', requestURL);
+        requestJSON.responseType = 'json';
+        requestJSON.send();
+
+        requestJSON.onload = function () {
+            document.getElementById('loading_img').style.height = '0';
+            createImageList(requestJSON.response);
+        }
+
+        function createImageList(jsonObj) {
+            const dataSet = jsonObj['data'];
+            const dataSize = dataSet.length;
+
+            for(var i=0; i<dataSize; i++) {
+                var imageItem = document.createElement('img');
+                var imageURL = dataSet[i].thumb_pic;
+                imageItem.setAttribute('src', imageURL);
+
+                var listItem = document.createElement('li');
+                listItem.appendChild(imageItem);
+
+                orderedList.appendChild(listItem);
+            }
+        }
+
+    </script>
+</body>
+
+</html>
