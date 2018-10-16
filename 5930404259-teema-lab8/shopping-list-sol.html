@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Shopping list example</title>
+  <style>
+    li {
+        margin-bottom: 10px;
+      }
+      li button {
+        font-size: 8px;
+        margin-left: 20px;
+        color: #666;
+      }
+    </style>
+</head>
+
+<body>
+
+  <h1>My shopping list</h1>
+
+  <div>
+    <label for="item">Enter a new item:</label>
+    <input type="text" name="item" id="item">
+    <button>Add item</button>
+  </div>
+
+  <ul></ul>
+
+  <script>
+    var itemAddBtn = document.querySelector('button');
+    var itemInput = document.querySelector('#item');
+    var ul = document.querySelector('ul');
+    var para = document.createElement('p');
+
+    document.body.appendChild(para);
+
+    itemAddBtn.addEventListener('click', addItem);
+    itemInput.addEventListener('keypress', function(event) {
+      var key = event.key;
+      if (key == 'Enter') {
+        addItem();
+      }
+    });
+
+    updateNumber();
+
+
+    function addItem() {
+      var listItem = document.createElement('li');
+      var delBtn = document.createElement('button');
+      var spanItem = document.createElement('span');
+
+      var itemName = itemInput.value;
+
+      if (itemName == "") return null;
+
+      spanItem.innerHTML = itemName;
+      delBtn.innerHTML = 'Delete';
+      delBtn.style.color = 'grey';
+
+      listItem.appendChild(spanItem);
+      listItem.appendChild(delBtn);
+
+      delBtn.addEventListener('click', function (event) { deleteItem(event); });
+
+      ul.appendChild(listItem);
+
+      updateNumber();
+    }
+
+    function deleteItem(e) {
+      var delBtn = e.target;
+      ul.removeChild(delBtn.parentElement);
+      updateNumber();
+    }
+
+    function updateNumber() {
+      var ulSize = ul.childNodes.length;
+      var numText = "The list has " + ulSize + " item";
+      if (ulSize > 1) numText = numText + 's';
+      para.textContent = numText;
+    }
+
+  </script>
+</body>
+
+</html>
