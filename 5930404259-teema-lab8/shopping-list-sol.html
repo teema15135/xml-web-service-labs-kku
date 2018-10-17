@@ -36,6 +36,7 @@
 
     document.body.appendChild(para);
 
+    ul.addEventListener('DOMSubtreeModified', updateNumber);
     itemAddBtn.addEventListener('click', addItem);
     itemInput.addEventListener('keypress', function(event) {
       var key = event.key;

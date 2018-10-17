@@ -46,11 +46,8 @@
   <h1>Some universities</h1>
 
   <form>
-    <label for="verse-choose">Choose a university</label><br/>
+    <label for="verse-choose">Choose a university</label><br />
     <select id="verse-choose" name="verse-choose">
-      <option>Carnegie Mellon University</option>
-      <option>University of Michigan</option>
-      <option>Khon Kaen University</option>
     </select>
   </form>
 
@@ -59,27 +56,49 @@
 
   <script>
 
-    var request = new XMLHttpRequest;
-    var requestMapJson = new XMLHttpRequest;
+    // var request = new XMLHttpRequest;
+    // var requestMapJson = new XMLHttpRequest;
     var mapObj;
     var image;
-    requestMapJson.open('GET', 'unames.json');
-    requestMapJson.responseType = 'json';
-    requestMapJson.send();
+    // requestMapJson.open('GET', 'unames.json');
+    // requestMapJson.responseType = 'json';
+    // requestMapJson.send();
 
     var selBox = document.querySelector('select');
 
-    requestMapJson.onload = function () {
-      mapObj = requestMapJson.response;
+    // requestMapJson.onload = function () {
+    //   mapObj = requestMapJson.response;
 
-      image = document.createElement('img');
-      image.style.width = '400px';
-      image.style.height = 'auto';
-      image.style.boxShadow = 'border-box';
-      document.body.appendChild(image);
+    //   image = document.createElement('img');
+    //   image.style.width = '400px';
+    //   image.style.height = 'auto';
+    //   image.style.boxShadow = 'border-box';
+    //   document.body.appendChild(image);
 
-      updateDisplay(selBox.value);
-    }
+    //   updateDisplay(selBox.value);
+    // }
+
+    fetch('unames.json').then(function (response) {
+      response.json().then(function (json) {
+        mapObj = json;
+
+        console.log(json);
+
+        for(key in mapObj) {
+          var option = document.createElement('option');
+          option.innerHTML = key;
+          document.getElementById('verse-choose').appendChild(option);
+        }
+
+        image = document.createElement('img');
+        image.style.width = '400px';
+        image.style.height = 'auto';
+        image.style.boxShadow = 'border-box';
+        document.body.appendChild(image);
+
+        updateDisplay(selBox.value);
+      });
+    });
 
     selBox.onchange = function () {
       var choosen = selBox.value;
@@ -99,10 +118,10 @@
       return mapObj[uName];
     }
 
-    request.onload = function () {
-      var textResp = request.response;
-      document.querySelector('pre').innerHTML = textResp;
-    }
+    // request.onload = function () {
+    //   var textResp = request.response;
+    //   document.querySelector('pre').innerHTML = textResp;
+    // }
 
   </script>
 </body>
