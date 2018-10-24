@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Login Google</title>
+    <meta name="google-signin-client_id" content="543508460762-07v7529esd2d0s25lm96e8kpqlgnou6l.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <style>
+        
+        article {
+            background-color: rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 25%;
+        }
+
+        article img {
+            border-radius: 50%;
+        }
+
+        .g-signin2 {
+            margin-bottom: 50px;
+        }
+    
+    </style>
+</head>
+
+<body>
+
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+    <section>
+
+    </section>
+
+    <script>
+
+        var googleProfile;
+
+        var section = document.querySelector('section');
+
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            googleProfile = googleUser.getBasicProfile();
+            displayProfile();
+            console.log(googleProfile);
+            console.log(googleUser);
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        }
+
+        function clearSection() {
+            while(section.firstChild) {
+                section.removeChild(section.firstChild);
+            }
+        }
+
+        function displayProfile() {
+            clearSection();
+            var art = document.createElement('article');
+            var h2 = document.createElement('h2');
+            var para = document.createElement('p');
+            var img = document.createElement('img');
+
+            h2.innerHTML = googleProfile.getName();
+            img.setAttribute('src', googleProfile.getImageUrl());
+            para.textContent = googleProfile.getEmail();
+
+            art.appendChild(h2);
+            art.appendChild(para);
+            art.appendChild(img);
+            section.appendChild(art);
+        }
+
+    </script>
+</body>
+
+</html>

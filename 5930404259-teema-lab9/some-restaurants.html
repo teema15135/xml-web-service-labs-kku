@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Some Restaurants In KK</title>
+    <style>
+        body {
+            width: 40%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        p {
+            margin: 2px;
+        }
+
+        .blue-color {
+            color: blue;
+        }
+
+        .green-color {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Some Restaurants in Khon Kaen</h1>
+
+    <ol>
+    </ol>
+
+    <script>
+        var url = 'restaurants-kk.json';
+
+        var ol = document.querySelector('ol');
+        
+        fetch(url).then(function(resp) {
+            resp.json().then(function(json) {
+                displayList(json);
+            });
+        });
+
+        function displayList(json) {
+            var res = json.results;
+            
+            for(var i = 0; i < res.length; i++) {
+                var current = res[i];
+                var name = 'name = ' + current.name;
+                var locObj = current.geometry.location;
+                var locTxt = 'location: lat = ' + locObj.lat + ' lng = ' + locObj.lng;
+                console.log(locTxt);
+
+                var para1 = document.createElement('p');
+                var para2 = document.createElement('p');
+
+                para1.textContent = name;
+                para2.textContent = locTxt;
+                para1.setAttribute('class','blue-color');
+                para2.setAttribute('class','green-color');
+
+                var li = document.createElement('li');
+                li.appendChild(para1);
+                li.appendChild(para2);
+
+                ol.appendChild(li);
+            }
+        }
+    </script>
+</body>
+</html>

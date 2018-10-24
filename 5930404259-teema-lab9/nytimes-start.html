@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>NY Times API example</title>
+  <link href="nytimes.css" rel="stylesheet">
+</head>
+
+<body>
+  <h1>NY Times video search</h1>
+
+  <div class="wrapper">
+
+    <div class="controls">
+      <form>
+        <p>
+          <label for="search">Enter a SINGLE search term (required): </label>
+          <input type="text" id="search" class="search" required>
+        </p>
+        <p>
+          <label for="start-date">Enter a start date (format YYYYMMDD): </label>
+          <input type="date" id="start-date" class="start-date" pattern="[0-9]{8}">
+        </p>
+        <p>
+          <label for="end-date">Enter an end date (format YYYYMMDD): </label>
+          <input type="date" id="end-date" class="end-date" pattern="[0-9]{8}">
+        </p>
+        <p>
+          <button class="submit">Submit search</button>
+        </p>
+      </form>
+    </div>
+
+    <div class="results">
+      <nav>
+        <button class="prev">Previous 10</button>
+        <button class="next">Next 10</button>
+      </nav>
+
+      <section>
+      </section>
+    </div>
+
+  </div>
+
+  <script>
+    // Defining a baseURL and key to as part of the request URL
+    var baseURL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
+    var key = '434aa8c397dc4bd284e125d1c93819f9';
+    var url;
+    // Grab references to all the DOM elements you'll need to manipulate
+    var searchTerm = document.querySelector('.search');
+    var startDate = document.querySelector('.start-date');
+    var endDate = document.querySelector('.end-date');
+    var searchForm = document.querySelector('form');
+    var submitBtn = document.querySelector('.submit');
+    var nextBtn = document.querySelector('.next');
+    var previousBtn = document.querySelector('.prev');
+    var section = document.querySelector('section');
+    var nav = document.querySelector('nav');
+
+    // Hide the "Previous"/"Next" navigation to begin with, as we don't need it immediately
+    nav.style.display = 'none';
+
+    // define the initial page number and status of the navigation being displayed
+    var pageNumber = 0;
+    var displayNav = false;
+
+    // Event listeners to control the functionality
+    submitBtn.addEventListener('click', submitSearch);
+
+    nextBtn.addEventListener('click', nextPage);
+    previousBtn.addEventListener('click', prevPage);
+
+    function nextPage(e) {
+      pageNumber++;
+      fetchResults(e);
+    }
+  
+    function prevPage(e) {
+      if(pageNumber <= 0)
+        return;
+      pageNumber--;
+      fetchResults(e);
+    }
+
+    function submitSearch(e) {
+      pageNumber = 0;
+      fetchResults(e);
+    }
+
+    function fetchResults(e) {
+      e.preventDefault();
+
+      url = baseURL + '?api-key=' + key + '&page=' + pageNumber;
+
+      if (startDate.value !== '') {
+        url += '&begin_date=' + startDate.value;
+      }
+
+      if (endDate.value !== '') {
+        url += '&end_date=' + endDate.value;
+      }
+
+      url += '&q=' + searchTerm.value + '&fq=document_type:("article")';
+
+      console.log(url);
+      removeSectionChild();
+      loadingText();
+
+      fetch(url).then(function (result) {
+        result.json().then(function (json) {
+          console.log(json);
+          displayResults(json);
+        });
+      });
+
+    }
+
+    function removeSectionChild() {
+      while (section.firstChild) {
+        section.removeChild(section.firstChild);
+      }
+    }
+
+    function loadingText() {
+      console.log('loading...');
+      section.appendChild(document.createTextNode('Loading...'));
+    }
+
+    function displayResults(json) {
+      
+      removeSectionChild();
+
+      console.log('loading complete!');
+
+      var articles = json.response.docs;
+
+      if (articles.length === 10)
+        nav.style.display = 'block';
+      else
+        nav.style.display = 'non';
+
+      if (articles.length == 0) {
+        section.appendChild(document.createTextNode('No results returned.'));
+        nav.style.visibility = 'hidden';
+        return;
+      }
+
+        nav.style.visibility = 'visible';
+
+      for (var i = 0; i < articles.length; i++) {
+        var currentArt = articles[i];
+
+        var article = document.createElement('article');
+        var heading = document.createElement('h2');
+        var link = document.createElement('a');
+        var img = document.createElement('img');
+        var para1 = document.createElement('p');
+        var para2 = document.createElement('p');
+        var clearfix = document.createElement('div');
+
+
+
+        if (currentArt.multimedia.length > 0) {
+          img.setAttribute('src', 'http://www.nytimes.com/' + currentArt.multimedia[1].legacy.wide);
+          img.setAttribute('alt', currentArt.headline.main);
+        }
+
+        link.innerHTML = currentArt.headline.main;
+        link.setAttribute('href', currentArt.web_url);
+
+        para1.textContent = currentArt.snippet;
+        
+        para2.textContent = "Keywords: ";
+        var keys = currentArt.keywords;
+        for(var j = 0; j < keys.length; j++) {
+          var span = document.createElement('span');
+          span.innerHTML = keys[j].value + ' ';
+          para2.appendChild(span);
+        }
+
+        article.appendChild(heading);
+        heading.appendChild(link);
+        article.appendChild(img);
+        article.appendChild(para1);
+        article.appendChild(para2);
+        article.appendChild(clearfix);
+        section.appendChild(article);
+      }
+    }
+
+  </script>
+
+
+</body>
+
+</html>
