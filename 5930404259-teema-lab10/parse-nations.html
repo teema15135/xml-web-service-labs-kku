@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Parse Nations</title>
+    <script src="scripts/jquery-3.3.1.min.js"></script>
+    <style>
+        #stage {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <p>Click on the button to load nations.xml file</p>
+    <section id='stage'><p>STAGE</p></section>
+    <button>Load Data</button>
+    <script>
+        $(document).ready(function() {
+            $('button').click(function() {
+                $.ajax({
+                    url: 'xmls/nations.xml',
+                    type: 'GET',
+                    dataType: 'xml',
+                    success: function(data) {
+                        updateStage(data);
+                    }
+                });
+            });
+        });
+
+        function updateStage(xml) {
+            var result = '<ul>';
+            var nations = $(xml).find('nation');
+
+            $(nations).each(function() {
+                result += '<li>' + $(this).find('name').text() + ' is in ' + $(this).find('location').text() + '</li>';
+            });
+
+            result += '</ul>'
+            $('#stage').html(result);
+            $('#stage p').hide();
+        }
+    </script>
+</body>
+</html>
