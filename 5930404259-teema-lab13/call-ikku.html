@@ -1,0 +1,62 @@
+<script src="https://unpkg.com/vue"></script>
+
+<style>
+    td { 
+        padding-right: 10px;
+    }
+    
+    #date {
+        width: inherit;
+    }
+
+    #title {
+        width: 250px;
+    }
+
+    #phone {
+        width: inherit;
+    }
+</style>
+
+<div id="app-ikku">
+    <table>
+        <tr v-for="item in items">
+            <td id='order'>{{ item.order }}</td>
+            <td id='date'>{{ item.date }}</td>
+            <td id='title'><a v-bind:href='item.url' target='_blank'>{{ item.title }}</a></td>
+            <td id='phone'>{{ item.phone }}</td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    var items = [];
+
+    var req = new XMLHttpRequest();
+    req.open('GET', 'https://www.kku.ac.th/ikku/api/activities/services/topActivity.php');
+    req.responseType = 'json';
+    req.send();
+
+    req.onload = function(e) {
+        var activities = req.response.activities;
+        var sizeAct = activities.length;
+        for (var i=0; i < sizeAct; i++) {
+            items.push({
+                order: i+1 + '.',
+                date: activities[i].dateSt,
+                title: activities[i].title,
+                url: activities[i].url,
+                phone: activities[i].contact.phone
+            });
+        }
+    };
+
+    console.log(items);
+
+    var app = new Vue({
+        el: '#app-ikku',
+        data: {
+            items: items
+        }
+    });
+</script>
